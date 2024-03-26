@@ -1,0 +1,51 @@
+<div class="login text-center">
+  <h4 class="my-3"><strong>Login Form</strong></h4>
+  <p class="mb-5">Angular Demo</p>
+  <div class="card login__form d-flex justify-content-center align-items-center" >
+    <div class="card-body w-100">
+      <img class="img-fluid mb-1" src="../../../assets/profile.jpg" alt="logo" />
+      <form [formGroup]="loginForm" (ngSubmit)="login()">
+        <div class="input-group mb-3 w-100">
+          <input type="email" class="form-control" placeholder="Email" formControlName="email" autocomplete="off" />
+          <div class="text-danger mt-3 px-1 w-100" *ngIf="loginForm.controls['email'].touched && loginForm.controls['email'].invalid">
+            <p *ngIf="loginForm.controls['email'].hasError('required')">
+              Email is required.
+            </p>
+            <p *ngIf="loginForm.controls['email'].hasError('email')">
+              Invalid email format.
+            </p>
+          </div>
+        </div>
+        <div class="input-group mb-3 w-100">
+          <input type="password" class="form-control" placeholder="Password" formControlName="password" autocomplete="off" />
+          <div class="text-danger mt-3 px-1 w-100" *ngIf="loginForm.controls['password'].touched && loginForm.controls['password'].invalid">
+            <p *ngIf="loginForm.controls['password'].hasError('required') || loginForm.controls['password'].hasError('minlength')">
+              Invalid password.
+            </p>
+          </div>
+          <div class="text-danger mt-3 px-1 w-100" *ngIf="isLoginError">
+            <p>
+              Invalid username or password.
+            </p>
+          </div>
+        </div>
+        <div class="w-100">
+
+        </div>
+        <div class="w-100">
+          <button class="btn btn-success w-100" *ngIf="!isLoading">Login</button>
+
+
+          <button class="btn btn-success w-100" type="button" disabled  *ngIf="isLoading">
+            <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+            <span role="status">  Loading...</span>
+          </button>
+        </div>
+      </form>
+      <div class="mt-4">
+        <small> user: <b>user&#64;demo.com</b> pass:<b>123456</b> </small>
+      </div>
+    </div>
+  </div>
+</div>
+

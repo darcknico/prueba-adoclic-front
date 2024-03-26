@@ -1,0 +1,76 @@
+<div class="container mt-5">
+  <div class="d-flex justify-content-between">
+      <h2>
+        Products List
+      </h2>
+      <button class="btn btn-danger" color="primary" (click)="logout()">Logout</button>
+  </div>
+  <div class="row">
+    <div class="col-md-6 col-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-6">
+              <div class="form-group">
+                <label for="category-select" >Category: </label>
+                <select id="category-select" class="form-select" (change)="onChangeCategory($event)" >
+                  <option value="all">All</option>
+                  <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group">
+                <label for="limit-select" >Limit: </label>
+                <select id="limit-select" class="form-select" [(ngModel)]="itemsPerPage">
+                  <option *ngFor="let option of itemsPerPageOptions" [value]="option">{{ option }}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col-12">
+      <div class="card">
+        <div class="table-responsive">
+          <table class="table" mat-table [dataSource]="dataSource.filteredData|slice:0:itemsPerPage">
+            <ng-container matColumnDef="id">
+              <th mat-header-cell *matHeaderCellDef>ID</th>
+              <td mat-cell *matCellDef="let product">{{ product.id }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="title">
+              <th mat-header-cell *matHeaderCellDef>Nombre</th>
+              <td mat-cell *matCellDef="let product">{{ product.title }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="category">
+              <th mat-header-cell *matHeaderCellDef>Categoría</th>
+              <td mat-cell *matCellDef="let product">{{ product.category }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="price">
+              <th mat-header-cell *matHeaderCellDef>Precio</th>
+              <td mat-cell *matCellDef="let product">{{ product.price }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="actions">
+              <th mat-header-cell *matHeaderCellDef>Acciones</th>
+              <td mat-cell *matCellDef="let product">
+                <button class="btn btn-success" (click)="openProductDetailModal(product)">
+                  open
+                </button>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
